@@ -1,0 +1,10 @@
+image:
+  repository: quarkus-app
+  tag: 1.0.0-dev
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 250m
+    memory: 256Mi
