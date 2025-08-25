@@ -7,8 +7,8 @@ NAMESPACE="quarkus-$ENV"
 
 echo "🚀 Implantando versão $VERSION para ambiente $ENV no namespace $NAMESPACE"
 
-# Garante que o namespace existe
-kubectl create namespace $NAMESPACE --dry-run=client -o yaml | kubectl apply -f -
+# Garante que o Minikube está usando a imagem local
+eval $(minikube docker-env)
 
 # Verifica se a imagem está disponível localmente
 if ! docker images | grep -q "quarkus-app.*$VERSION-$ENV"; then
@@ -16,8 +16,8 @@ if ! docker images | grep -q "quarkus-app.*$VERSION-$ENV"; then
   exit 1
 fi
 
-# Garante que o Minikube está usando a imagem local
-eval $(minikube docker-env)
+# Garante que o namespace existe
+kubectl create namespace $NAMESPACE --dry-run=client -o yaml | kubectl apply -f -
 
 # Executa o deploy via Helm
 helm upgrade --install quarkus-app ./helm \

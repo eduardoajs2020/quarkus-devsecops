@@ -4,9 +4,9 @@ kind: Service
 metadata:
   annotations:
     app.quarkus.io/quarkus-version: 3.9.2
-    app.quarkus.io/commit-id: d94718f9d603ee3d190e4aff9d5493b7acbc41a5
+    app.quarkus.io/commit-id: 9c68c974334061c01ebf4b5f9b8d7d57006dc140
     app.quarkus.io/vcs-uri: https://github.com/eduardoajs2020/quarkus-devsecops.git
-    app.quarkus.io/build-timestamp: 2025-08-25 - 04:23:44 +0000
+    app.quarkus.io/build-timestamp: 2025-08-25 - 05:07:01 +0000
   labels:
     app.kubernetes.io/name: quarkus-app
     app.kubernetes.io/version: 1.0.0
@@ -30,9 +30,9 @@ kind: Deployment
 metadata:
   annotations:
     app.quarkus.io/quarkus-version: 3.9.2
-    app.quarkus.io/commit-id: d94718f9d603ee3d190e4aff9d5493b7acbc41a5
+    app.quarkus.io/commit-id: 9c68c974334061c01ebf4b5f9b8d7d57006dc140
     app.quarkus.io/vcs-uri: https://github.com/eduardoajs2020/quarkus-devsecops.git
-    app.quarkus.io/build-timestamp: 2025-08-25 - 04:23:44 +0000
+    app.quarkus.io/build-timestamp: 2025-08-25 - 05:07:01 +0000
   labels:
     app.kubernetes.io/name: quarkus-app
     app.kubernetes.io/version: 1.0.0
@@ -44,20 +44,20 @@ spec:
   replicas: 2
   selector:
     matchLabels:
-      app.kubernetes.io/version: 1.0.0
       app.kubernetes.io/name: quarkus-app
+      app.kubernetes.io/version: 1.0.0
   template:
     metadata:
       annotations:
         app.quarkus.io/quarkus-version: 3.9.2
-        app.quarkus.io/commit-id: d94718f9d603ee3d190e4aff9d5493b7acbc41a5
+        app.quarkus.io/commit-id: 9c68c974334061c01ebf4b5f9b8d7d57006dc140
         app.quarkus.io/vcs-uri: https://github.com/eduardoajs2020/quarkus-devsecops.git
-        app.quarkus.io/build-timestamp: 2025-08-25 - 04:23:44 +0000
+        app.quarkus.io/build-timestamp: 2025-08-25 - 05:07:01 +0000
       labels:
         app: quarkus-app
         app.kubernetes.io/managed-by: quarkus
-        app.kubernetes.io/version: 1.0.0
         app.kubernetes.io/name: quarkus-app
+        app.kubernetes.io/version: 1.0.0
       namespace: quarkus-dev
     spec:
       containers:
