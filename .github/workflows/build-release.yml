@@ -1,15 +1,37 @@
-    - name: Build with Maven
-      run: ./mvnw clean package -DskipTests
+name: Build and Release Quarkus App
 
-    - name: Debug GitHub Token
-      run: |
-        echo "Testando autenticação com GitHub API..."
-        curl -H "Authorization: token ${{ secrets.GH_PATH }}" https://api.github.com/user
+on:
+  push:
+    tags:
+      - 'v*'
 
-    - name: Upload Release Asset
-      uses: softprops/action-gh-release@v1
-      with:
-        files: target/*.jar
-      env:
-        GITHUB_TOKEN: ${{ secrets.GH_PATH }}
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v3
+
+      - name: Configurar Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+
+      - name: Build com Maven
+        run: ./mvnw clean package -DskipTests
+
+      - name: Executar testes
+        run: ./mvnw test
+
+      - name: Debug GitHub Token
+        run: |
+          echo "Testando autenticação com GitHub API..."
+          curl -H "Authorization: token ${{ secrets.GH_PATH }}" https://api.github.com/user
+
+      - name: Criar release no GitHub
+        uses: softprops/action-gh-release@v1
+        with:
+          files: target/*.jar
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PATH }}
     
