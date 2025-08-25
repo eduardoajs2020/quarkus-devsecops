@@ -65,6 +65,17 @@
         </execution>
       </executions>
     </plugin>
+    <plugin>
+  <groupId>io.quarkus</groupId>
+  <artifactId>quarkus-maven-plugin</artifactId>
+  <configuration>
+    <nativeImageProperties>
+      <nativeImageProperty>
+        --initialize-at-run-time=org.apache.commons.compress.compressors.zstandard.ZstdCompressorInputStream
+      </nativeImageProperty>
+    </nativeImageProperties>
+  </configuration>
+</plugin>
 
     <!-- Plugin do SonarQube -->
     <plugin>
