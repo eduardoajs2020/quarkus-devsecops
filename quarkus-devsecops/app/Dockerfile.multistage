@@ -7,8 +7,8 @@ FROM eclipse-temurin:17-jre-jammy as runtime
 WORKDIR /app
 RUN groupadd -r quarkus && useradd -r -g quarkus quarkus
 USER quarkus
-COPY --from=builder --chown=quarkus:quarkus /app/target/*-runner.jar /app/app.jar
-COPY --from=builder --chown=quarkus:quarkus /app/target/lib /app/lib
+COPY --from=builder --chown=quarkus:quarkus /app/*-runner.jar /app/app.jar
+COPY --from=builder --chown=quarkus:quarkus /app/lib /app/lib
 EXPOSE 8080
 HEALTHCHECK CMD curl -f http://localhost:8080/q/health || exit 1
 ENTRYPOINT ["java", "-jar", "/app/app.jar"]

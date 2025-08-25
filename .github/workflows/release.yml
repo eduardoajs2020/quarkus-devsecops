@@ -19,7 +19,11 @@ jobs:
           java-version: '17'
 
       - name: Build com Maven
-        run: ./mvnw clean package -DskipTests
+        run: ./mvnw -f app/pom.xml clean package -DskipTests
+
+      - name: Executar testes
+        run: ./mvnw -f app/pom.xml test
+
 
       - name: Criar release no GitHub
         uses: softprops/action-gh-release@v1

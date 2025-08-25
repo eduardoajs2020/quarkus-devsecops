@@ -1,6 +1,8 @@
 image:
   repository: quarkus-app
   tag: 1.0.0-dev
+  pullPolicy: IfNotPresent  # Evita tentar puxar do Docker Hub se a imagem já estiver no Minikube
+
 resources:
   limits:
     cpu: 500m
@@ -8,3 +10,23 @@ resources:
   requests:
     cpu: 250m
     memory: 256Mi
+
+replicaCount: 2
+
+service:
+  type: ClusterIP
+  port: 8080
+
+livenessProbe:
+  httpGet:
+    path: /q/health/live
+    port: 8080
+  initialDelaySeconds: 10
+  periodSeconds: 10
+
+readinessProbe:
+  httpGet:
+    path: /q/health/ready
+    port: 8080
+  initialDelaySeconds: 10
+  periodSeconds: 10

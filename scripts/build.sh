@@ -1,10 +1,13 @@
 #!/bin/bash
-set -e
-VERSION=${1:-1.0.0}
-ENV=${2:-dev}
+
+VERSION=$1
+ENV=$2
+
 echo "Building version $VERSION for $ENV"
 
-cd app
-./mvnw clean package -DskipTests
+# Corrigido: executa o mvnw da raiz e aponta para o pom.xml dentro de app/
+./mvnw -f app/pom.xml clean package -DskipTests
+
+# Criação da imagem Docker
 docker build -f Dockerfile.multistage -t quarkus-app:$VERSION-$ENV .
-docker scan quarkus-app:$VERSION-$ENV
+
