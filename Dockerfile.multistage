@@ -2,11 +2,11 @@
 FROM eclipse-temurin:17-jdk AS builder
 WORKDIR /app
 
-# Copia tudo da raiz do projeto
+# Copia tudo da raiz do projeto. Isso inclui a pasta 'app' e o código-fonte
 COPY . .
 
-# Executa o build
-RUN ./mvnw -f app/pom.xml clean package -DskipTests -Dquarkus.container-image.build=false
+# Executa o build da aplicação. O JAR será gerado em /app/app/target/
+RUN ./mvnw -f app/pom.xml clean package -DskipTests -Dquarkus.package.type=uber-jar
 
 # Etapa de runtime
 FROM eclipse-temurin:17-jre AS runtime
@@ -15,7 +15,8 @@ WORKDIR /app
 RUN groupadd -r quarkus && useradd -r -g quarkus quarkus
 USER quarkus
 
-COPY --from=builder /app/app/target/quarkus-app-1.0.0.jar /app/app.jar
+# CORREÇÃO: Copia o JAR executável ("runner.jar")
+COPY --from=builder /app/app/target/*-runner.jar /app/app.jar
 
 EXPOSE 8080
 HEALTHCHECK CMD curl -f http://localhost:8080/q/health || exit 1
